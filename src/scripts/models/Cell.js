@@ -7,10 +7,19 @@ class Cell {
   }
 
   draw() {
-    ctx.strokeStyle = "black";
-    ctx.strokeRect(this.x, this.y, this.width, this.height);
+    //If there is a collision between this cell and the mouse, highlight this cell
+    if (mouse.x && mouse.y && Cell.collision(mouse, this)) {
+      console.log("Drawing");
+      // ctx.strokeStyle = "black";
+      ctx.shadowColor = "gray";
+      ctx.shadowBlur = 20;
+      ctx.lineWidth = 0;
+
+      ctx.strokeRect(this.x, this.y, this.width, this.height);
+    }
   }
 
+  //CREATE AND RETURN A GRID OF CELLS
   static createGrid = () => {
     let grid = [];
     //Cycle through each column
@@ -21,11 +30,20 @@ class Cell {
       }
     }
 
-    //Draw each cell
-    grid.forEach(cell => {
-      cell.draw();
-    });
-
     return grid;
+  };
+
+  //COLLISION DETECTION BETWEEN TWO CELLS FIRST AND SECOND
+  static collision = (first, second) => {
+    if (
+      !(
+        first.x > second.x + second.width ||
+        first.x + first.width < second.x ||
+        first.y > second.y + second.height ||
+        first.y + first.height < second.y
+      )
+    ) {
+      return true;
+    }
   };
 }
