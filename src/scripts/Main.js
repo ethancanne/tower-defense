@@ -2,7 +2,7 @@ let canvasPosition = canvas.getBoundingClientRect();
 
 //EVENT LISTENERS
 canvas.addEventListener("mousemove", e => {
-  //Set mouse position offseted from canvas postion to get correct coordinites
+  //Set mouse position offseted from canvas postion to get correct coordinates
   console.log("Firing");
   mouse.x = e.x - canvasPosition.left;
   mouse.y = e.y - canvasPosition.top;
