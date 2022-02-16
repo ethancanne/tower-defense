@@ -1,6 +1,6 @@
 let canvasPosition = canvas.getBoundingClientRect();
 
-//Event listeners
+//EVENT LISTENERS
 canvas.addEventListener("mousemove", e => {
   //Set mouse position offseted from canvas postion to get correct coordinites
   console.log("Firing");
@@ -26,10 +26,12 @@ canvas.addEventListener("click", () => {
     defenders.push(new Defender(gridPositionX, gridPositionY));
 
     //Subtract Cost
-    numberOfResources - +defenderCost;
+    numberOfResources -= defenderCost;
+    console.log(numberOfResources);
   }
 });
 
+//SET UP GAME
 //Create a game grid and a function that will draw the cells on the game grid
 const gameGrid = Cell.createGrid();
 const handleGameGrid = () => {
@@ -37,7 +39,7 @@ const handleGameGrid = () => {
     cell.draw();
   });
 };
-
+//Defenders
 const defenders = [];
 const handleDefenders = () => {
   defenders.forEach(defender => {
@@ -45,18 +47,25 @@ const handleDefenders = () => {
   });
 };
 
-//Projectiles
-//Defenders
+//PROJECTILES
+//ENEMIES
+//RESOURCES
 
-//Enemies
-//Resources
-//Utilities
+//UTILITIES
 const animate = () => {
+  //Draw the top bar
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "red";
+  ctx.fillStyle = "darkgreen";
   ctx.fillRect(0, 0, controlsBar.width, controlsBar.height);
+  ctx.fillStyle = "white";
+  ctx.font = "50px Arial";
+  ctx.textAlign = "center";
+  ctx.fillText("The Game", canvas.width / 2, 70);
+  //Run the functions for game functionality
   handleGameGrid();
   handleDefenders();
+
+  //Do it again...
   requestAnimationFrame(animate);
 };
 animate();

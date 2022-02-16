@@ -19,6 +19,6 @@ class Defender {
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.fillStyle = "white";
     ctx.font = "50px Arial";
-    ctx.fillText(Math.floor(this.health), this.x + 10, this.y + 60);
+    ctx.fillText(Math.floor(this.health), this.x + 50, this.y + 60);
   }
 }

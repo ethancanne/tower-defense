@@ -33,7 +33,7 @@ class Cell {
     return grid;
   };
 
-  //COLLISION DETECTION BETWEEN TWO CELLS FIRST AND SECOND
+  //COLLISION DETECTION BETWEEN TWO OBJECTS FIRST AND SECOND
   static collision = (first, second) => {
     if (
       !(

@@ -9,7 +9,7 @@ canvas.height = 600;
 const ctx = canvas.getContext("2d");
 
 //Defenders
-let numberOfResources = 0;
+let numberOfResources = 1;
 //EXPORTS
 
 //Objects
