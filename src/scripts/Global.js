@@ -4,8 +4,8 @@ const cellSize = 100;
 
 //Canvas
 const canvas = document.getElementById("canvas1");
-canvas.width = 900;
-canvas.height = 600;
+canvas.width = 1200;
+canvas.height = 800;
 const ctx = canvas.getContext("2d");
 let frame = 0;
 
