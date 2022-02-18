@@ -48,15 +48,20 @@ const handleGameGrid = () => {
 };
 
 //HANDLE ENEMIES (CONOR)
-const enimies = [];
+const enemies = [];
 //Create a function that loops through an enemies array (which will have to be created)
 //which calls their update and draw methods;
 const handleEnemies = () => {
   enemies.forEach(enemy => {
     enemy.draw();
   })
+  if (frame % enemyInterval === 0) {
+    const rowRand = (Math.random() * cellSize + canvas.height);
+    const row = rowRand - (rowRand % 100);
+    enemies.push(new Enemy(canvas.width, row));  
+  }
 }
-//it also renders a new enemy when the "frame" variable from Global.js is divisable by
+//it also renders a new enemy when the "frame" variable from Global.js is divisible by
 //enemyInterval from Global.js,
 
 //You can render a new enemy by pushing a new Enemy object to the enemies array with a random
@@ -72,7 +77,7 @@ const handleDefenders = () => {
     // defender.update();
 
     //Loop through each of the enemies
-    enimies.forEach(enemy => {
+    enemies.forEach(enemy => {
       //If an enemy collides with a defender and the defender exists
       if (defender && Cell.collision(defender, enemy)) {
         //Set the enemy movement to zero (it stops moving)
@@ -82,7 +87,7 @@ const handleDefenders = () => {
         defender.health -= 0.2;
       }
 
-      //If the defender looses all health
+      //If the defender loses all health
       if (defender && defender.health <= 0) {
         //Remove it!
         defenders.filter(i => i !== defender);

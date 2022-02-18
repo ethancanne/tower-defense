@@ -7,6 +7,7 @@ class Enemy {
     //width -> cellSize (from Global.js)
     //height -> cellSize (from Global.js)
     //speed -> A random value between 0.2 and 0.4
+    speed = Math.random() * 0.2 + 0.4;
     //movement -> this.speed (store the original speed if this enemy has to stop)
     //health -> 100
     //maxhealth -> this.health (store the original health if the enemy looses health)
@@ -14,6 +15,7 @@ class Enemy {
 
   update() {
     //This is where you perform the animations, which is just subtracting the x value by the movement class property
+    this.x -= speed;
   }
 
   draw() {
