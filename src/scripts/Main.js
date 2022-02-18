@@ -52,15 +52,18 @@ const enemies = [];
 //Create a function that loops through an enemies array (which will have to be created)
 //which calls their update and draw methods;
 const handleEnemies = () => {
+
+  if (frame % enemyInterval === 0) {
+    const row = (Math.floor(Math.random() * (8-1) + 1)) * cellSize;
+    enemies.push(new Enemy(row));  
+    console.log(row);
+  }
+  
   enemies.forEach(enemy => {
     enemy.draw();
     enemy.update();
   })
-  if (frame % enemyInterval === 0) {
-    const rowRand = (Math.random() * cellSize + canvas.height);
-    const row = rowRand - (rowRand % 100);
-    enemies.push(new Enemy(row));  
-  }
+  
 }
 //it also renders a new enemy when the "frame" variable from Global.js is divisible by
 //enemyInterval from Global.js,
@@ -130,6 +133,7 @@ const animate = () => {
   handleGameGrid();
   handleDefenders();
   handleGameStatus();
+  handleEnemies();
 
   //Add to the frame value
   frame++;

@@ -1,6 +1,6 @@
 //TEVIN
 class Enemy {
-  constructor(verticalPostion) {
+  constructor(verticalPosition) {
     //Store class properties for
     //x -> canvas.width (to place it all the way to the right of the canvas)
     this.x = canvas.width;
