@@ -49,14 +49,13 @@ const handleGameGrid = () => {
 
 //HANDLE ENEMIES (CONOR)
 const enimies = [];
+Math.floor(Math.random() * 1 + 7) * cellSize;
 //Create a function that loops through an enemies array (which will have to be created)
 //which calls their update and draw methods;
 //it also renders a new enemy when the "frame" variable from Global.js is divisable by
 //enemyInterval from Global.js,
-
 //You can render a new enemy by pushing a new Enemy object to the enemies array with a random
 //vertical position, representing a random row on the canvas (use Math.Random() and cellSize).
-
 //Lastly, push the enemy position (x and y values) to the enemPositions array from Global.js
 
 //HANDLE DEFENDERS
@@ -64,7 +63,11 @@ const defenders = [];
 const handleDefenders = () => {
   defenders.forEach(defender => {
     defender.draw();
-    // defender.update();
+    defender.update();
+
+    defender.projectiles.forEach(projectile => {
+      projectile.draw();
+    });
 
     //Loop through each of the enemies
     enimies.forEach(enemy => {
@@ -100,6 +103,7 @@ const handleGameStatus = () => {
 
 //...
 //HANDLE PROJECTILES
+
 //HANDLE RESOURCES
 //HANDLE UTILITIES
 //...

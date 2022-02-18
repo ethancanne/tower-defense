@@ -25,9 +25,11 @@ class Defender {
     ctx.fillText(Math.floor(this.health), this.x + 50, this.y + 60);
   }
 
+  Math.floor.(Math.random() * 1 +5)
   update() {
     this.timer++;
     if (this.timer % 100 === 0) {
+
       //Every 100 frames
 
       //Create a projectile at the same postion as this defender
