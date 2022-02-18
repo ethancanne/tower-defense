@@ -18,7 +18,7 @@ canvas.addEventListener("click", () => {
 
   if (gridPositionY < cellSize) return;
 
-  let defenderCost = 0;
+  let defenderCost = 10;
 
   //If the player has enough resources to buy the defender and he is not trying to place a
   //defender in the same position
@@ -52,16 +52,24 @@ const enemies = [];
 //Create a function that loops through an enemies array (which will have to be created)
 //which calls their update and draw methods;
 const handleEnemies = () => {
-  if (frame % enemyInterval === 0) {
-    const row = Math.floor(Math.random() * (8 - 1) + 1) * cellSize;
-    enemies.push(new Enemy(row));
-    console.log(row);
-  }
-
   enemies.forEach(enemy => {
     enemy.draw();
     enemy.update();
+
+    if (enemy.x < 0) {
+      gameOver = true;
+    }
   });
+  if (frame % enemyInterval === 0) {
+    const row = Math.floor(Math.random() * (8 - 1) + 1) * cellSize;
+    enemies.push(new Enemy(row));
+
+    //Add the postion to the
+    enemyPositions.push(row);
+
+    //Make enemies less frequent
+    if (enemyInterval > 120) enemyInterval -= 50;
+  }
 };
 //it also renders a new enemy when the "frame" variable from Global.js is divisible by
 //enemyInterval from Global.js,
@@ -74,14 +82,9 @@ const defenders = [];
 const handleDefenders = () => {
   defenders.forEach(defender => {
     defender.draw();
-    defender.update();
-
-    defender.projectiles.forEach(projectile => {
-      projectile.draw();
-    });
 
     //Loop through each of the enemies
-    enemies.forEach(enemy => {
+    enemies.forEach((enemy, i) => {
       //If an enemy collides with a defender and the defender exists
       if (defender && Cell.collision(defender, enemy)) {
         //Set the enemy movement to zero (it stops moving)
@@ -91,13 +94,22 @@ const handleDefenders = () => {
         defender.health -= 0.2;
       }
 
+      if (enemy.health <= 0) {
+        enemies.splice(i, 1);
+        numberOfResources += enemy.maxHealth / 10;
+      }
+
       //If the defender loses all health
       if (defender && defender.health <= 0) {
         //Remove it!
-        defenders.filter(i => i !== defender);
-
+        defenders.splice(i, 1);
+        i--;
         //Reset the movement of the enemy
         enemy.movement = enemy.speed;
+      }
+      //If the enemy is on a defenders row
+      if (enemy.y === defender.y) {
+        defender.update();
       }
     });
   });
@@ -114,6 +126,24 @@ const handleGameStatus = () => {
 
 //...
 //HANDLE PROJECTILES
+const handleProjectiles = () => {
+  projectiles.forEach((projectile, i) => {
+    projectile.update();
+    projectile.draw();
+
+    enemies.forEach(enemy => {
+      if (enemy && projectile && Cell.collision(projectile, enemy)) {
+        enemy.health -= projectile.power;
+        projectiles.splice(i, 1);
+        i--;
+      }
+    });
+    if (projectile && projectile.x > canvas.width - cellSize) {
+      projectiles.splice(i, 1);
+      i--;
+    }
+  });
+};
 
 //HANDLE RESOURCES
 //HANDLE UTILITIES
@@ -135,6 +165,7 @@ const animate = () => {
   handleDefenders();
   handleGameStatus();
   handleEnemies();
+  handleProjectiles();
 
   //Add to the frame value
   frame++;

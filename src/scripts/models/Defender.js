@@ -32,6 +32,7 @@ class Defender {
 
       //Create a projectile at the same postion as this defender
       this.projectiles.push(new Projectile(this.x, this.y));
+      projectiles.push(new Projectile(this.x, this.y));
     }
   }
 }

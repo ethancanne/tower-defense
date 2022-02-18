@@ -17,7 +17,7 @@ class Enemy {
     //health -> 100
     this.health = 100;
     //maxhealth -> this.health (store the original health if the enemy looses health)
-    this.maxhealth = this.health;
+    this.maxHealth = this.health;
   }
 
   update() {

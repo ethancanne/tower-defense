@@ -16,6 +16,5 @@ class Projectile {
     ctx.arc(this.x + 20, this.y + 50, this.width / 2, 0, 2 * Math.PI, false);
     ctx.fillStyle = "green";
     ctx.fill();
-    this.update();
   }
 }
