@@ -18,5 +18,11 @@ class Enemy {
 
   draw() {
     //Draw the enemy on the canvas along with text on the enemy indicating its health
+      ctx.fillStyle = "red";
+      ctx.fillRect(this.x, this.y, this.width, this.height);
+  
+      ctx.fillStyle = "white";
+      ctx.font = "50px Quicksand";
+      ctx.fillText(Math.floor(this.health), this.x + 50, this.y + 60);
   }
 }

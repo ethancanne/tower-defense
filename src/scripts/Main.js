@@ -51,6 +51,11 @@ const handleGameGrid = () => {
 const enimies = [];
 //Create a function that loops through an enemies array (which will have to be created)
 //which calls their update and draw methods;
+const handleEnemies = () => {
+  enemies.forEach(enemy => {
+    enemy.draw();
+  })
+}
 //it also renders a new enemy when the "frame" variable from Global.js is divisable by
 //enemyInterval from Global.js,
 
