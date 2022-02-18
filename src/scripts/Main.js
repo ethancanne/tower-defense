@@ -54,11 +54,12 @@ const enemies = [];
 const handleEnemies = () => {
   enemies.forEach(enemy => {
     enemy.draw();
+    enemy.update();
   })
   if (frame % enemyInterval === 0) {
     const rowRand = (Math.random() * cellSize + canvas.height);
     const row = rowRand - (rowRand % 100);
-    enemies.push(new Enemy(canvas.width, row));  
+    enemies.push(new Enemy(row));  
   }
 }
 //it also renders a new enemy when the "frame" variable from Global.js is divisible by
