@@ -48,11 +48,22 @@ const handleGameGrid = () => {
 };
 
 //HANDLE ENEMIES (CONOR)
-const enimies = [];
-Math.floor(Math.random() * 1 + 7) * cellSize;
+const enemies = [];
 //Create a function that loops through an enemies array (which will have to be created)
 //which calls their update and draw methods;
-//it also renders a new enemy when the "frame" variable from Global.js is divisable by
+const handleEnemies = () => {
+  if (frame % enemyInterval === 0) {
+    const row = Math.floor(Math.random() * (8 - 1) + 1) * cellSize;
+    enemies.push(new Enemy(row));
+    console.log(row);
+  }
+
+  enemies.forEach(enemy => {
+    enemy.draw();
+    enemy.update();
+  });
+};
+//it also renders a new enemy when the "frame" variable from Global.js is divisible by
 //enemyInterval from Global.js,
 //You can render a new enemy by pushing a new Enemy object to the enemies array with a random
 //vertical position, representing a random row on the canvas (use Math.Random() and cellSize).
@@ -70,7 +81,7 @@ const handleDefenders = () => {
     });
 
     //Loop through each of the enemies
-    enimies.forEach(enemy => {
+    enemies.forEach(enemy => {
       //If an enemy collides with a defender and the defender exists
       if (defender && Cell.collision(defender, enemy)) {
         //Set the enemy movement to zero (it stops moving)
@@ -80,7 +91,7 @@ const handleDefenders = () => {
         defender.health -= 0.2;
       }
 
-      //If the defender looses all health
+      //If the defender loses all health
       if (defender && defender.health <= 0) {
         //Remove it!
         defenders.filter(i => i !== defender);
@@ -123,6 +134,7 @@ const animate = () => {
   handleGameGrid();
   handleDefenders();
   handleGameStatus();
+  handleEnemies();
 
   //Add to the frame value
   frame++;
