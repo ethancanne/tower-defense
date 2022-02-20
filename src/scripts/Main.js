@@ -13,8 +13,8 @@ canvas.addEventListener("mouseleave", () => {
 });
 
 canvas.addEventListener("click", () => {
-  const gridPositionX = mouse.x - (mouse.x % cellSize);
-  const gridPositionY = mouse.y - (mouse.y % cellSize);
+  const gridPositionX = mouse.x - (mouse.x % cellSize) + cellGap;
+  const gridPositionY = mouse.y - (mouse.y % cellSize) + cellGap;
 
   if (gridPositionY < cellSize) return;
 
@@ -37,6 +37,10 @@ canvas.addEventListener("click", () => {
   }
 });
 
+window.addEventListener("resize", () => {
+  canvasPosition = canvas.getBoundingClientRect();
+});
+
 //------------HANDLERS------------
 //HANDLE GAME GRID
 //Create a game grid and a function that will draw the cells on the game grid
@@ -52,16 +56,25 @@ const enemies = [];
 //Create a function that loops through an enemies array (which will have to be created)
 //which calls their update and draw methods;
 const handleEnemies = () => {
-  enemies.forEach(enemy => {
+  enemies.forEach((enemy, i) => {
     enemy.draw();
     enemy.update();
 
+    //If the enemy hits the tower (right side) its GAME OVER!
     if (enemy.x < 0) {
       gameOver = true;
     }
+
+    //Let the user gain their well-earned resources and score
+    if (enemy.health <= 0) {
+      enemies.splice(i, 1); //Remove the enemy
+      enemyPositions.splice(enemyPositions.indexOf(enemy.y, 0), 1);
+      numberOfResources += enemy.maxHealth / 10; //Add the resources
+      score += enemy.maxHealth / 10;
+    }
   });
   if (frame % enemyInterval === 0) {
-    const row = Math.floor(Math.random() * (8 - 1) + 1) * cellSize;
+    const row = Math.floor(Math.random() * (8 - 1) + 1) * cellSize + cellGap;
     enemies.push(new Enemy(row));
 
     //Add the postion to the
@@ -82,6 +95,11 @@ const defenders = [];
 const handleDefenders = () => {
   defenders.forEach(defender => {
     defender.draw();
+    defender.update();
+
+    //If the defender has an enemy on its row, set it to shoot
+    if (enemyPositions.indexOf(defender.y) !== -1) defender.shooting = true;
+    else defender.shooting = false;
 
     //Loop through each of the enemies
     enemies.forEach((enemy, i) => {
@@ -94,11 +112,6 @@ const handleDefenders = () => {
         defender.health -= 0.2;
       }
 
-      if (enemy.health <= 0) {
-        enemies.splice(i, 1);
-        numberOfResources += enemy.maxHealth / 10;
-      }
-
       //If the defender loses all health
       if (defender && defender.health <= 0) {
         //Remove it!
@@ -107,21 +120,8 @@ const handleDefenders = () => {
         //Reset the movement of the enemy
         enemy.movement = enemy.speed;
       }
-      //If the enemy is on a defenders row
-      if (enemy.y === defender.y) {
-        defender.update();
-      }
     });
   });
-};
-
-//HANDLE GAME STATUS
-const handleGameStatus = () => {
-  ctx.fillStyle = "white";
-  ctx.font = "30px Quicksand";
-  ctx.fillText("Money: " + numberOfResources, 100, 60);
-  if (gameOver) {
-  }
 };
 
 //...
@@ -143,6 +143,33 @@ const handleProjectiles = () => {
       i--;
     }
   });
+};
+
+//HANDLE GAME STATUS
+const handleGameStatus = () => {
+  ctx.fillStyle = "white";
+  ctx.font = "30px Quicksand";
+  ctx.fillText("Money: " + numberOfResources, 100, 40);
+
+  ctx.fillStyle = "white";
+  ctx.font = "30px Quicksand";
+  ctx.fillText("Score: " + score, 80, 80);
+
+  if (gameOver) {
+    ctx.fillStyle = "black";
+    ctx.font = "100px Quicksand";
+    ctx.textAlign = "center";
+    ctx.fillText("Game over!!!!!", 600, 500);
+  }
+
+  //Check if the round has finished
+  if (score >= winningScore && enemies.length === 0) {
+    ctx.fillStyle = "black";
+    ctx.font = "100px Quicksand";
+    ctx.fillText("YOU WIN!", 600, 500);
+    ctx.font = "30px Quicksand";
+    ctx.fillText("You scored " + score + " points!", 600, 550);
+  }
 };
 
 //HANDLE RESOURCES

@@ -7,9 +7,9 @@ class Enemy {
     //y -> verticalPosition (the row the enemy appears in)
     this.y = verticalPosition;
     //width -> cellSize (from Global.js)
-    this.width = cellSize;
+    this.width = cellSize - cellGap * 2;
     //height -> cellSize (from Global.js)
-    this.height = cellSize;
+    this.height = cellSize - cellGap * 2;
     //speed -> A random value between 0.2 and 0.4
     this.speed = Math.random() * 0.2 + 0.4;
     //movement -> this.speed (store the original speed if this enemy has to stop)
