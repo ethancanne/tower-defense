@@ -11,7 +11,7 @@ class Enemy {
     //height -> cellSize (from Global.js)
     this.height = cellSize - cellGap * 2;
     //speed -> A random value between 0.2 and 0.4
-    this.speed = Math.random() * 0.2 + 0.4;
+    this.speed = Math.random() * (round / 10 + 0.2) + (round / 10 + 0.4);
     //movement -> this.speed (store the original speed if this enemy has to stop)
     this.movement = this.speed;
     //health -> 100
@@ -32,6 +32,6 @@ class Enemy {
 
     ctx.fillStyle = "white";
     ctx.font = "50px Quicksand";
-    ctx.fillText(Math.floor(this.health), this.x + 50, this.y + 60);
+    ctx.fillText(Math.floor(this.health), this.x + 90, this.y + 60);
   }
 }

@@ -77,7 +77,7 @@ const handleEnemies = () => {
     const row = Math.floor(Math.random() * (8 - 1) + 1) * cellSize + cellGap;
     enemies.push(new Enemy(row));
 
-    //Add the postion to the
+    //Add the postion to the array
     enemyPositions.push(row);
 
     //Make enemies less frequent
@@ -147,28 +147,46 @@ const handleProjectiles = () => {
 
 //HANDLE GAME STATUS
 const handleGameStatus = () => {
+  //Money
   ctx.fillStyle = "white";
   ctx.font = "30px Quicksand";
-  ctx.fillText("Money: " + numberOfResources, 100, 40);
+  ctx.fillText("Money: " + numberOfResources, 80, 40);
 
+  //Score
   ctx.fillStyle = "white";
   ctx.font = "30px Quicksand";
-  ctx.fillText("Score: " + score, 80, 80);
+  ctx.fillText("Score: " + score, 68, 80);
+
+  //Round
+  ctx.fillStyle = "white";
+  ctx.textAlign = "right";
+  ctx.font = "30px Quicksand";
+  ctx.fillText("Round: " + round, 1180, 60);
 
   if (gameOver) {
     ctx.fillStyle = "black";
-    ctx.font = "100px Quicksand";
-    ctx.textAlign = "center";
-    ctx.fillText("Game over!!!!!", 600, 500);
+    ctx.font = "80px Quicksand";
+    ctx.textAlign = "left";
+    ctx.fillText("Game over!!!!!", 300, 300);
+    console.log("GAME");
   }
 
   //Check if the round has finished
   if (score >= winningScore && enemies.length === 0) {
     ctx.fillStyle = "black";
-    ctx.font = "100px Quicksand";
-    ctx.fillText("YOU WIN!", 600, 500);
+    ctx.font = "80px Quicksand";
+    ctx.textAlign = "left";
+    ctx.textAlign = "left";
+    ctx.fillText("Round " + round + " Completed", 300, 300);
     ctx.font = "30px Quicksand";
-    ctx.fillText("You scored " + score + " points!", 600, 550);
+    ctx.fillText("You scored " + score + " points!", 300, 350);
+
+    enemies = [];
+    //Adjust for next round
+    hasBegun = false;
+    round += 1;
+    enemyInterval -= 50;
+    winningScore += 50;
   }
 };
 

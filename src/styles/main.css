@@ -10,6 +10,7 @@ body {
   transform: translate(-50%, -50%);
   width: 1200px;
   height: 800px;
+
   background-color: white;
   font-family: "Quicksand", sans-serif;
   box-shadow: rgba(0, 0, 0, 0.171) 0px 0px 20px;

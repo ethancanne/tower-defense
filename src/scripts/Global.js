@@ -13,9 +13,10 @@ let frame = 0;
 let numberOfResources = 30;
 let score = 0;
 let winningScore = 10;
+let round = 1;
 
 //Enemies
-var enemyInterval = 700;
+var enemyInterval = 900;
 const enemyPositions = [];
 
 //Projectiles
