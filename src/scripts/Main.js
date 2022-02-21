@@ -71,7 +71,7 @@ const handleEnemies = () => {
 //You can render a new enemy by pushing a new Enemy object to the enemies array with a random
 //vertical position, representing a random row on the canvas (use Math.Random() and cellSize).
 
-//Lastly, push the enemy position (x and y values) to the enemPositions array from Global.js
+//Lastly, push the enemy position (x and y values) to the enemyPositions array from Global.js
 
 //HANDLE DEFENDERS
 const defenders = [];
