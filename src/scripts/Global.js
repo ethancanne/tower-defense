@@ -10,11 +10,16 @@ const ctx = canvas.getContext("2d");
 let frame = 0;
 
 //Resources
-let numberOfResources = 1;
+let numberOfResources = 30;
+let score = 0;
+let winningScore = 10;
 
 //Enemies
-const enemyInterval = 300;
+var enemyInterval = 700;
 const enemyPositions = [];
+
+//Projectiles
+const projectiles = []; //Holds all projectiles
 
 //Game
 let gameOver = false;

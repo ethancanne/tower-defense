@@ -3,8 +3,8 @@ class Defender {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.width = cellSize;
-    this.height = cellSize;
+    this.width = cellSize - cellGap * 2;
+    this.height = cellSize - cellGap * 2;
 
     this.shooting = false;
     this.health = 100;
@@ -27,11 +27,12 @@ class Defender {
 
   update() {
     this.timer++;
-    if (this.timer % 100 === 0) {
+    if (this.timer % 100 === 0 && this.shooting) {
       //Every 100 frames
 
       //Create a projectile at the same postion as this defender
       this.projectiles.push(new Projectile(this.x, this.y));
+      projectiles.push(new Projectile(this.x, this.y));
     }
   }
 }

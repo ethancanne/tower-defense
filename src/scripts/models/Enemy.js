@@ -7,9 +7,9 @@ class Enemy {
     //y -> verticalPosition (the row the enemy appears in)
     this.y = verticalPosition;
     //width -> cellSize (from Global.js)
-    this.width = cellSize;
+    this.width = cellSize - cellGap * 2;
     //height -> cellSize (from Global.js)
-    this.height = cellSize;
+    this.height = cellSize - cellGap * 2;
     //speed -> A random value between 0.2 and 0.4
     this.speed = Math.random() * 0.2 + 0.4;
     //movement -> this.speed (store the original speed if this enemy has to stop)
@@ -17,7 +17,7 @@ class Enemy {
     //health -> 100
     this.health = 100;
     //maxhealth -> this.health (store the original health if the enemy looses health)
-    this.maxhealth = this.health;
+    this.maxHealth = this.health;
   }
 
   update() {
@@ -27,11 +27,11 @@ class Enemy {
 
   draw() {
     //Draw the enemy on the canvas along with text on the enemy indicating its health
-      ctx.fillStyle = "red";
-      ctx.fillRect(this.x, this.y, this.width, this.height);
-  
-      ctx.fillStyle = "white";
-      ctx.font = "50px Quicksand";
-      ctx.fillText(Math.floor(this.health), this.x + 50, this.y + 60);
+    ctx.fillStyle = "red";
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+
+    ctx.fillStyle = "white";
+    ctx.font = "50px Quicksand";
+    ctx.fillText(Math.floor(this.health), this.x + 50, this.y + 60);
   }
 }
