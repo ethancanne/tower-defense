@@ -15,7 +15,7 @@ class Enemy {
     //movement -> this.speed (store the original speed if this enemy has to stop)
     this.movement = this.speed;
     //health -> 100
-    this.health = 100;
+    this.health = 100 + round * 10;
     //maxhealth -> this.health (store the original health if the enemy looses health)
     this.maxHealth = this.health;
   }
@@ -32,6 +32,7 @@ class Enemy {
 
     ctx.fillStyle = "white";
     ctx.font = "50px Quicksand";
-    ctx.fillText(Math.floor(this.health), this.x + 90, this.y + 60);
+    ctx.textAlign = "center";
+    ctx.fillText(Math.floor(this.health), this.x + 50, this.y + 60);
   }
 }

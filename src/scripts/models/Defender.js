@@ -21,6 +21,7 @@ class Defender {
     ctx.fillRect(this.x, this.y, this.width, this.height);
 
     ctx.fillStyle = "white";
+    ctx.textAlign = "center";
     ctx.font = "50px Quicksand";
     ctx.fillText(Math.floor(this.health), this.x + 50, this.y + 60);
   }

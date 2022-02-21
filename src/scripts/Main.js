@@ -1,7 +1,5 @@
 let canvasPosition = canvas.getBoundingClientRect();
 
-let hasBegun = false;
-
 //------------EVENT LISTENERS------------
 canvas.addEventListener("mousemove", e => {
   //Set mouse position offseted from canvas postion to get correct coordinates
@@ -25,7 +23,7 @@ canvas.addEventListener("click", () => {
   //If the player has enough resources to buy the defender and he is not trying to place a
   //defender in the same position
   if (
-    numberOfResources >= defenderCost &&
+    money >= defenderCost &&
     !defenders.find(
       defender => defender.x === gridPositionX && defender.y === gridPositionY
     )
@@ -34,27 +32,35 @@ canvas.addEventListener("click", () => {
     defenders.push(new Defender(gridPositionX, gridPositionY));
 
     //Subtract Cost
-    numberOfResources -= defenderCost;
-    console.log(numberOfResources);
+    money -= defenderCost;
+    console.log(money);
   }
 });
 
 window.addEventListener("resize", () => {
   canvasPosition = canvas.getBoundingClientRect();
+  canvas.width = window.innerWidth * 0.9;
+  canvas.height = window.innerHeight * 0.9;
+});
+
+let startButton = document.getElementById("startgame");
+startButton.addEventListener("click", () => {
+  hasBegun = true;
 });
 
 //------------HANDLERS------------
 //HANDLE GAME GRID
 //Create a game grid and a function that will draw the cells on the game grid
-const gameGrid = Cell.createGrid();
 const handleGameGrid = () => {
+  const gameGrid = Cell.createGrid();
+
   gameGrid.forEach(cell => {
     cell.draw();
   });
 };
 
 //HANDLE ENEMIES (CONOR)
-const enemies = [];
+let enemies = [];
 //Create a function that loops through an enemies array (which will have to be created)
 //which calls their update and draw methods;
 const handleEnemies = () => {
@@ -71,12 +77,15 @@ const handleEnemies = () => {
     if (enemy.health <= 0) {
       enemies.splice(i, 1); //Remove the enemy
       enemyPositions.splice(enemyPositions.indexOf(enemy.y, 0), 1);
-      numberOfResources += enemy.maxHealth / 10; //Add the resources
+      money += enemy.maxHealth / 10; //Add the resources
       score += enemy.maxHealth / 10;
     }
   });
-  if (frame % enemyInterval === 0) {
-    const row = Math.floor(Math.random() * (8 - 1) + 1) * cellSize + cellGap;
+  const numberOfRows = Math.floor((window.innerHeight * 0.9) / cellSize) - 1;
+
+  if (frame % enemyInterval === 0 || enemies.length === 0) {
+    const row =
+      Math.floor(Math.random() * numberOfRows + 1) * cellSize + cellGap;
     enemies.push(new Enemy(row));
 
     //Add the postion to the array
@@ -93,9 +102,9 @@ const handleEnemies = () => {
 //Lastly, push the enemy position (x and y values) to the enemPositions array from Global.js
 
 //HANDLE DEFENDERS
-const defenders = [];
+let defenders = [];
 const handleDefenders = () => {
-  defenders.forEach(defender => {
+  defenders.forEach((defender, i) => {
     defender.draw();
     defender.update();
 
@@ -104,7 +113,7 @@ const handleDefenders = () => {
     else defender.shooting = false;
 
     //Loop through each of the enemies
-    enemies.forEach((enemy, i) => {
+    enemies.forEach(enemy => {
       //If an enemy collides with a defender and the defender exists
       if (defender && Cell.collision(defender, enemy)) {
         //Set the enemy movement to zero (it stops moving)
@@ -118,7 +127,7 @@ const handleDefenders = () => {
       if (defender && defender.health <= 0) {
         //Remove it!
         defenders.splice(i, 1);
-        i--;
+
         //Reset the movement of the enemy
         enemy.movement = enemy.speed;
       }
@@ -137,12 +146,12 @@ const handleProjectiles = () => {
       if (enemy && projectile && Cell.collision(projectile, enemy)) {
         enemy.health -= projectile.power;
         projectiles.splice(i, 1);
-        i--;
+        // i--;
       }
     });
-    if (projectile && projectile.x > canvas.width - cellSize) {
+    if (projectile && projectile.x > canvas.width) {
       projectiles.splice(i, 1);
-      i--;
+      // i--;
     }
   });
 };
@@ -150,46 +159,55 @@ const handleProjectiles = () => {
 //HANDLE GAME STATUS
 const handleGameStatus = () => {
   //Money
-  ctx.fillStyle = "white";
+  ctx.fillStyle = "black";
+  ctx.textAlign = "left";
   ctx.font = "30px Quicksand";
-  ctx.fillText("Money: " + numberOfResources, 80, 40);
+  ctx.fillText("Money: " + money, 20, 40);
 
   //Score
-  ctx.fillStyle = "white";
+  ctx.fillStyle = "black";
+  ctx.textAlign = "left";
   ctx.font = "30px Quicksand";
-  ctx.fillText("Score: " + score, 68, 80);
+  ctx.fillText("Score: " + score, 20, 70);
 
   //Round
-  ctx.fillStyle = "white";
+  ctx.fillStyle = "black";
   ctx.textAlign = "right";
   ctx.font = "30px Quicksand";
-  ctx.fillText("Round: " + round, 1180, 60);
+  ctx.fillText("Round: " + round, canvas.width - 20, 40);
+
+  //Winning Score
+  ctx.fillStyle = "black";
+  ctx.textAlign = "right";
+  ctx.font = "30px Quicksand";
+  ctx.fillText("Winning Score: " + winningScore, canvas.width - 20, 70);
 
   if (gameOver) {
     ctx.fillStyle = "black";
     ctx.font = "80px Quicksand";
-    ctx.textAlign = "left";
-    ctx.fillText("Game over!!!!!", 300, 300);
-    console.log("GAME");
+    ctx.textAlign = "center";
+    ctx.fillText("Game over!!!!!", canvas.width - canvas.width / 2, 300);
+    enemyPositions = [];
+    defenders = [];
+    enemies = [];
+    money = 0;
   }
 
   //Check if the round has finished
-  if (score >= winningScore && enemies.length === 0) {
-    ctx.fillStyle = "black";
-    ctx.font = "80px Quicksand";
-    ctx.textAlign = "left";
-    ctx.textAlign = "left";
-    ctx.fillText("Round " + round + " Completed", 300, 300);
-    ctx.font = "30px Quicksand";
-    ctx.fillText("You scored " + score + " points!", 300, 350);
-
+  if (score >= winningScore) {
     enemies = [];
+    enemyPositions = [];
     //Adjust for next round
     hasBegun = false;
     round += 1;
     enemyInterval -= 50;
-    winningScore += 50;
+    winningScore += 30 * round;
+    money += 50;
   }
+  document.getElementById("background").style.backgroundColor = hasBegun
+    ? "rgba(0, 0, 0, 0.523)"
+    : "rgba(223, 223, 223, 0.523)";
+  document.getElementById("startgame").style.opacity = hasBegun ? 0 : 1;
 };
 
 //HANDLE RESOURCES
@@ -200,9 +218,9 @@ const handleGameStatus = () => {
 const animate = () => {
   //Draw the top bar
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = hasBegun ? "red" : "black";
-  ctx.fillRect(0, 0, controlsBar.width, controlsBar.height);
   ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, cellSize);
+  ctx.fillStyle = "black";
   ctx.font = "50px Quicksand";
   ctx.textAlign = "center";
   ctx.fillText("Tower Defense", canvas.width / 2, 70);
@@ -212,7 +230,7 @@ const animate = () => {
   handleDefenders();
   handleGameStatus();
   handleProjectiles();
-  if (hasBegun === true) {
+  if (hasBegun === true && gameOver === false) {
     handleEnemies();
   }
 
@@ -220,12 +238,6 @@ const animate = () => {
   frame++;
 
   //Do it again... If gameover is false
-  if (!gameOver) requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 };
 animate();
-
-let startButton = document.getElementById('startgame');
-
-startButton.addEventListener("click", () => {
-  hasBegun = true;
-});
