@@ -1,5 +1,7 @@
 let canvasPosition = canvas.getBoundingClientRect();
 
+let hasBegun = false;
+
 //------------EVENT LISTENERS------------
 canvas.addEventListener("mousemove", e => {
   //Set mouse position offseted from canvas postion to get correct coordinates
@@ -198,7 +200,7 @@ const handleGameStatus = () => {
 const animate = () => {
   //Draw the top bar
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "black";
+  ctx.fillStyle = hasBegun ? "red" : "black";
   ctx.fillRect(0, 0, controlsBar.width, controlsBar.height);
   ctx.fillStyle = "white";
   ctx.font = "50px Quicksand";
@@ -209,8 +211,10 @@ const animate = () => {
   handleGameGrid();
   handleDefenders();
   handleGameStatus();
-  handleEnemies();
   handleProjectiles();
+  if (hasBegun === true) {
+    handleEnemies();
+  }
 
   //Add to the frame value
   frame++;
@@ -219,3 +223,9 @@ const animate = () => {
   if (!gameOver) requestAnimationFrame(animate);
 };
 animate();
+
+let startButton = document.getElementById('startgame');
+
+startButton.addEventListener("click", () => {
+  hasBegun = true;
+});
