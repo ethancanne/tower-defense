@@ -1,5 +1,3 @@
-
-
 //------------EVENT LISTENERS------------
 canvas.addEventListener("mousemove", e => {
   //Set mouse position offseted from canvas postion to get correct coordinates
@@ -29,14 +27,18 @@ canvas.addEventListener("click", () => {
     )
   ) {
     //Add a new defender to the array
-      switch (selectedDefender) {
-        case (defenderTypes.bluetype) :
-          defenders.push(new Defender(gridPositionX, gridPositionY, 100, "blue", 100, 10));
-          break;
-        case (defenderTypes.greentype) :
-          defenders.push(new Defender(gridPositionX, gridPositionY, 150, "green", 80, 20));
-          break;
-      }
+    switch (selectedDefender) {
+      case defenderTypes.bluetype:
+        defenders.push(
+          new Defender(gridPositionX, gridPositionY, 100, "blue", 100, 10)
+        );
+        break;
+      case defenderTypes.greentype:
+        defenders.push(
+          new Defender(gridPositionX, gridPositionY, 150, "green", 80, 20)
+        );
+        break;
+    }
 
     //Subtract Cost
     money -= defenderCost;
@@ -55,12 +57,17 @@ startButton.addEventListener("click", () => {
   hasBegun = true;
 });
 
-//blueButton and greenButton are stand-in names for the button names from html
-//let bluedefender = document.getElementById("blueButton");
-//bluedefender.addEventListener("click", () => selectedDefender = defenderTypes.bluetype);
+let bluedefender = document.getElementById("blue-defender");
+bluedefender.addEventListener(
+  "click",
+  () => (selectedDefender = defenderTypes.bluetype)
+);
 
-//let greendefender = document.getElementById("greenButton");
-//greendefender.addEventListener("click", () => selectedDefender = defenderTypes.greentype);
+let greendefender = document.getElementById("green-defender");
+greendefender.addEventListener(
+  "click",
+  () => (selectedDefender = defenderTypes.greentype)
+);
 
 //------------HANDLERS------------
 //HANDLE GAME GRID
