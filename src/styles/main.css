@@ -14,17 +14,45 @@ body {
 }
 
 .defenders {
-  padding: 20px;
+  
+  padding: 20px 20px 20px 50px;
   width: 100%;
   height: 40px;
   z-index: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
 }
-.defender.blue-defender {
+.defenders.blue-defender {
+ 
+
 }
-.defender.green-defender {
+.defenders.green-defender {
+
+}
+
+#blue-defender {
+  border: none;
+  color: white;
+  background-color: rgb(60, 60, 170);
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+#green-defender{
+  border: none;
+  color: white;
+  background-color: rgb(13, 207, 55);
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  pos
 }
 
 #canvas1 {
