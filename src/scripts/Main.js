@@ -55,6 +55,7 @@ startButton.addEventListener("click", () => {
   hasBegun = true;
 });
 
+//blueButton and greenButton are stand-in names for the button names from html
 //let bluedefender = document.getElementById("blueButton");
 //bluedefender.addEventListener("click", () => selectedDefender = defenderTypes.bluetype);
 
