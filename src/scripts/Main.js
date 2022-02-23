@@ -1,4 +1,4 @@
-let canvasPosition = canvas.getBoundingClientRect();
+
 
 //------------EVENT LISTENERS------------
 canvas.addEventListener("mousemove", e => {
@@ -29,7 +29,14 @@ canvas.addEventListener("click", () => {
     )
   ) {
     //Add a new defender to the array
-    defenders.push(new Defender(gridPositionX, gridPositionY));
+      switch (selectedDefender) {
+        case (defenderTypes.bluetype) :
+          defenders.push(new Defender(gridPositionX, gridPositionY, 100, "blue", 100, 10));
+          break;
+        case (defenderTypes.greentype) :
+          defenders.push(new Defender(gridPositionX, gridPositionY, 150, "green", 80, 20));
+          break;
+      }
 
     //Subtract Cost
     money -= defenderCost;
@@ -47,6 +54,12 @@ let startButton = document.getElementById("startgame");
 startButton.addEventListener("click", () => {
   hasBegun = true;
 });
+
+//let bluedefender = document.getElementById("blueButton");
+//bluedefender.addEventListener("click", () => selectedDefender = defenderTypes.bluetype);
+
+//let greendefender = document.getElementById("greenButton");
+//greendefender.addEventListener("click", () => selectedDefender = defenderTypes.greentype);
 
 //------------HANDLERS------------
 //HANDLE GAME GRID

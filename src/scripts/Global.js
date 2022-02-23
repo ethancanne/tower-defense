@@ -8,6 +8,7 @@ canvas.width = window.innerWidth * 0.9;
 canvas.height = window.innerHeight * 0.9;
 const ctx = canvas.getContext("2d");
 let frame = 0;
+let canvasPosition = canvas.getBoundingClientRect();
 
 //Resources
 let money = 30;
@@ -33,3 +34,11 @@ const mouse = {
   width: 0.1,
   height: 0.1,
 };
+
+//Defenders 
+const defenderTypes = {
+  bluetype: "BLUE",
+  greentype: "GREEN",
+};
+
+var selectedDefender = defenderTypes.bluetype;
