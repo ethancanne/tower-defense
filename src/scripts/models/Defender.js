@@ -38,7 +38,7 @@ class Defender {
 
   update() {
     this.timer++;
-    if (this.timer % 100 === 0 && this.shootingInterval) {
+    if (this.timer % this.shootingInterval === 0 && this.shooting) {
       //Every 100 frames
 
       //Create a projectile at the same postion as this defender
