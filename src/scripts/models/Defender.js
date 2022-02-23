@@ -1,6 +1,6 @@
 //This class will be called every time we place a new defender
 class Defender {
-  constructor(x, y) {
+  constructor(x, y, health, color, shootingInterval, power) {
     this.x = x;
     this.y = y;
     this.width = cellSize - cellGap * 2;
