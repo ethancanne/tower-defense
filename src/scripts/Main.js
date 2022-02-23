@@ -28,8 +28,13 @@ canvas.addEventListener("click", () => {
       defender => defender.x === gridPositionX && defender.y === gridPositionY
     )
   ) {
-    //Add a new defender to the array
-    defenders.push(new Defender(gridPositionX, gridPositionY));
+    //Add a new blue defender to the array
+    if (bluedef) {
+      defenders.push(new Defender(gridPositionX, gridPositionY));
+    }
+    else if (greendef) {
+      defenders.push(new Defender(gridPositionX, gridPositionY));
+    }
 
     //Subtract Cost
     money -= defenderCost;
