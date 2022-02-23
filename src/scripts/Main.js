@@ -120,7 +120,7 @@ const handleDefenders = () => {
         enemy.movement = 0;
 
         //Reduce the defender's health
-        defender.health -= 0.2 * round * 0.5;
+        defender.health -= 0.2 + round * 0.2;
       }
 
       //If the defender loses all health
