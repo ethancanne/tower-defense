@@ -1,13 +1,23 @@
 //This class will be called every time we place a new defender
 class Defender {
-  constructor(x, y, health, color, shootingInterval, power) {
+  constructor(
+    x,
+    y,
+    health = 100,
+    color = "blue",
+    shootingInterval = 100,
+    power = 10
+  ) {
     this.x = x;
     this.y = y;
     this.width = cellSize - cellGap * 2;
     this.height = cellSize - cellGap * 2;
+    this.color = color;
+    this.shootingInterval = shootingInterval;
+    this.power = power;
 
     this.shooting = false;
-    this.health = 100;
+    this.health = health;
 
     //Holds the projectiles that defender is currently shooting
     this.projectiles = [];
@@ -17,7 +27,7 @@ class Defender {
   }
 
   draw() {
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
 
     ctx.fillStyle = "white";
@@ -28,12 +38,14 @@ class Defender {
 
   update() {
     this.timer++;
-    if (this.timer % 100 === 0 && this.shooting) {
+    if (this.timer % 100 === 0 && this.shootingInterval) {
       //Every 100 frames
 
       //Create a projectile at the same postion as this defender
-      this.projectiles.push(new Projectile(this.x, this.y));
-      projectiles.push(new Projectile(this.x, this.y));
+      this.projectiles.push(
+        new Projectile(this.x, this.y, this.shootingInterval)
+      );
+      projectiles.push(new Projectile(this.x, this.y, this.power));
     }
   }
 }
