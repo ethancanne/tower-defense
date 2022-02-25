@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+body {
+  background-color: rgba(223, 223, 223, 0.523);
+  overflow: hidden;
+}
+.canvas-container {
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.defenders {
+  
+  /* padding: 0px 20px 20px 80px; */
+  width: 90%;
+  height: 40px;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: left;
+}
+.defenders.blue-defender {
+ 
+
+}
+.defenders.green-defender {
+
+}
+
+#blue-defender {
+  border: none;
+  color: white;
+  background-color: rgb(60, 60, 170);
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#green-defender{
+  border: none;
+  color: white;
+  background-color: rgb(13, 207, 55);
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#canvas1 {
+  width: 90vw;
+  height: 90vh;
+
+  background-color: white;
+  font-family: "Quicksand", sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.171) 0px 0px 20px;
+  border-radius: 10px;
+  /* border: 10px solid black; */
+}
+
+#startgame {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+
+  padding: 15px;
+  /* margin: 20px; */
+  color: white;
+  font-size: 20px;
+  /* border-radius: 8px; */
+  background-color: rgb(36, 96, 51);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.276);
+  border: none;
+  z-index: 90;
+}
+
+#startgame:hover {
+  cursor: pointer;
+}
