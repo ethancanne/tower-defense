@@ -226,7 +226,7 @@ const handleGameStatus = () => {
     money += 50;
   }
   document.getElementById("background").style.backgroundColor = hasBegun
-    ? "rgba(0, 0, 0, 0.523)"
+    ? "rgba(0, 0, 0, 1)"
     : "rgba(223, 223, 223, 0.523)";
   document.getElementById("startgame").style.opacity = hasBegun ? 0 : 1;
 };

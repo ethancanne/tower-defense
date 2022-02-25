@@ -19,6 +19,10 @@ let round = 1;
 //Enemies
 var enemyInterval = 900;
 var enemyPositions = [];
+const enemyTypes = [];
+const enemy1 = new Image();
+enemy1.src = "./assets/enemyRun.png";
+enemyTypes.push(enemy1);
 
 //Projectiles
 var projectiles = []; //Holds all projectiles
@@ -35,7 +39,7 @@ const mouse = {
   height: 0.1,
 };
 
-//Defenders 
+//Defenders
 const defenderTypes = {
   bluetype: "BLUE",
   greentype: "GREEN",
