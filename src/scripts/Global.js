@@ -40,9 +40,27 @@ const mouse = {
 };
 
 //Defenders
+const defender1ShootingImg = new Image();
+defender1ShootingImg.src = "./assets/defender1throw.png";
+
+const defender1IdleImg = new Image();
+defender1IdleImg.src = "./assets/defender1idle.png";
+
+const defender2ShootingImg = new Image();
+defender2ShootingImg.src = "./assets/knightshooting.png";
+
+const defender2IdleImg = new Image();
+defender2IdleImg.src = "./assets/knightidle.png";
+
 const defenderTypes = {
-  bluetype: "BLUE",
-  greentype: "GREEN",
+  basic: {
+    idle: { img: defender1IdleImg, width: 232, height: 500 },
+    shooting: { img: defender1ShootingImg, width: 378, height: 500 },
+  },
+  strong: {
+    idle: { img: defender2IdleImg, width: 588, height: 700 },
+    shooting: { img: defender2ShootingImg, width: 590, height: 600 },
+  },
 };
 
-var selectedDefender = defenderTypes.bluetype;
+var selectedDefender = defenderTypes.basic;

@@ -16,32 +16,51 @@ canvas.addEventListener("click", () => {
 
   if (gridPositionY < cellSize) return;
 
-  let defenderCost = 10;
-
   //If the player has enough resources to buy the defender and he is not trying to place a
   //defender in the same position
+  var defenderCost = 10;
   if (
-    money >= defenderCost &&
     !defenders.find(
       defender => defender.x === gridPositionX && defender.y === gridPositionY
     )
   ) {
     //Add a new defender to the array
     switch (selectedDefender) {
-      case defenderTypes.bluetype:
-        defenders.push(
-          new Defender(gridPositionX, gridPositionY, 100, "blue", 100, 10)
-        );
+      case defenderTypes.basic:
+        if (money >= 10) {
+          defenders.push(
+            new Defender(
+              gridPositionX,
+              gridPositionY,
+              100,
+              100,
+              10,
+              selectedDefender
+            )
+          );
+          money -= 10;
+        }
+
         break;
-      case defenderTypes.greentype:
-        defenders.push(
-          new Defender(gridPositionX, gridPositionY, 150, "green", 80, 20)
-        );
+      case defenderTypes.strong:
+        if (money >= 20) {
+          defenders.push(
+            new Defender(
+              gridPositionX,
+              gridPositionY,
+              150,
+              50,
+              20,
+              selectedDefender
+            )
+          );
+          money -= 20;
+        }
+
         break;
     }
 
     //Subtract Cost
-    money -= defenderCost;
     console.log(money);
   }
 });
@@ -58,16 +77,19 @@ startButton.addEventListener("click", () => {
 });
 
 let bluedefender = document.getElementById("blue-defender");
-bluedefender.addEventListener(
-  "click",
-  () => (selectedDefender = defenderTypes.bluetype)
-);
+bluedefender.addEventListener("click", () => {
+  selectedDefender = defenderTypes.basic;
+  bluedefender.classList.add("selected");
+  greendefender.classList.remove("selected");
+});
 
 let greendefender = document.getElementById("green-defender");
-greendefender.addEventListener(
-  "click",
-  () => (selectedDefender = defenderTypes.greentype)
-);
+greendefender.addEventListener("click", () => {
+  selectedDefender = defenderTypes.strong;
+
+  bluedefender.classList.remove("selected");
+  greendefender.classList.add("selected");
+});
 
 //------------HANDLERS------------
 //HANDLE GAME GRID
@@ -111,9 +133,6 @@ const handleEnemies = () => {
 
     //Add the postion to the array
     enemyPositions.push(row);
-
-    //Make enemies less frequent
-    if (enemyInterval > 120) enemyInterval -= 50;
   }
 };
 //it also renders a new enemy when the "frame" variable from Global.js is divisible by
@@ -180,31 +199,31 @@ const handleProjectiles = () => {
 //HANDLE GAME STATUS
 const handleGameStatus = () => {
   //Money
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "white";
   ctx.textAlign = "left";
   ctx.font = "30px Quicksand";
   ctx.fillText("Money: " + money, 20, 40);
 
   //Score
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "white";
   ctx.textAlign = "left";
   ctx.font = "30px Quicksand";
   ctx.fillText("Score: " + score, 20, 70);
 
   //Round
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "white";
   ctx.textAlign = "right";
   ctx.font = "30px Quicksand";
   ctx.fillText("Round: " + round, canvas.width - 20, 40);
 
   //Winning Score
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "white";
   ctx.textAlign = "right";
   ctx.font = "30px Quicksand";
   ctx.fillText("Winning Score: " + winningScore, canvas.width - 20, 70);
 
   if (gameOver) {
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "white";
     ctx.font = "80px Quicksand";
     ctx.textAlign = "center";
     ctx.fillText("Game over!!!!!", canvas.width - canvas.width / 2, 300);
@@ -221,9 +240,9 @@ const handleGameStatus = () => {
     //Adjust for next round
     hasBegun = false;
     round += 1;
-    enemyInterval -= 50;
+    enemyInterval -= 30;
     winningScore += 30 * round;
-    money += 50;
+    money += 10 * round;
   }
   document.getElementById("background").style.backgroundColor = hasBegun
     ? "rgba(0, 0, 0, 1)"
@@ -240,11 +259,9 @@ const animate = () => {
   //Draw the top bar
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, canvas.width, cellSize);
-  ctx.fillStyle = "black";
-  ctx.font = "50px Quicksand";
+  ctx.font = "30px Quicksand";
   ctx.textAlign = "center";
-  ctx.fillText("Tower Defense", canvas.width / 2, 70);
+  ctx.fillText("The Battle Against the Dinos", canvas.width / 2, 70);
 
   //Run the functions for game functionality
   handleGameGrid();

@@ -38,17 +38,6 @@ class Enemy {
   }
 
   draw() {
-    //Draw the enemy on the canvas along with text on the enemy indicating its health
-    // ctx.fillStyle = "red";
-    // ctx.fillRect(this.x, this.y, this.width, this.height);
-
-    ctx.fillStyle = "black";
-    ctx.font = "20px Quicksand";
-    ctx.textAlign = "center";
-    ctx.fillText(Math.floor(this.health), this.x + 50, this.y - 10);
-
-    // ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
-    console.log(this.enemyType);
     ctx.drawImage(
       this.enemyType,
       this.frameX * this.spriteWidth,
@@ -60,5 +49,11 @@ class Enemy {
       this.width,
       this.height
     );
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.font = "900 20px Quicksand";
+    ctx.shadowColor = "black";
+    ctx.shadowBlur = 7;
+    ctx.fillText(Math.floor(this.health), this.x + 80, this.y + 20);
   }
 }

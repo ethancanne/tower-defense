@@ -9,7 +9,7 @@ class Cell {
   draw() {
     //If there is a collision between this cell and the mouse, highlight this cell
     if (mouse.x && mouse.y && Cell.collision(mouse, this)) {
-      // ctx.strokeStyle = "black";
+      ctx.strokeStyle = "white";
       // ctx.shadowColor = "gray";
       // ctx.shadowBlur = 20;
       // ctx.lineWidth = 0;

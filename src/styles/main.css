@@ -15,7 +15,6 @@ body {
 }
 
 .defenders {
-  
   /* padding: 0px 20px 20px 80px; */
   width: 90%;
   height: 40px;
@@ -25,51 +24,44 @@ body {
   flex-direction: row;
   justify-content: left;
 }
-.defenders.blue-defender {
- 
 
+.defender-button {
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 900;
+  margin: 20px 20px 0 0;
+  cursor: pointer;
+  transition: all 1s;
 }
-.defenders.green-defender {
-
+.selected {
+  border: white 5px solid;
+  box-shadow: 0px 0 20px rgba(0, 0, 0, 0.214);
 }
 
 #blue-defender {
-  border: none;
-  color: white;
   background-color: rgb(60, 60, 170);
-  padding: 10px 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 5px;
 }
 
-#green-defender{
-  border: none;
-  color: white;
+#green-defender {
   background-color: rgb(13, 207, 55);
-  padding: 10px 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 5px;
 }
 
 #canvas1 {
   width: 90vw;
   height: 90vh;
-
+  background-image: url(https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__480.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-color: white;
   font-family: "Quicksand", sans-serif;
   box-shadow: rgba(0, 0, 0, 0.171) 0px 0px 20px;
-  border-radius: 10px;
-  /* border: 10px solid black; */
+  border-radius: 2px;
 }
 
 #startgame {
